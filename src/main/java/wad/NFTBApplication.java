@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class nftbApplication {
+public class NFTBApplication {
     public static void main(String[] args) {
-        SpringApplication.run(nftbApplication.class, args);
+        SpringApplication.run(NFTBApplication.class, args);
     }
 }
