@@ -6,6 +6,5 @@ $(document).ready(function() {
           $("ol").append("<li>" + article.title + "</li>");
        });
    });
-
-
 });
+
