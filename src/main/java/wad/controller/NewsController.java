@@ -2,6 +2,9 @@ package wad.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import wad.domain.Article;
 import wad.repository.ArticleRepository;
@@ -26,5 +29,10 @@ public class NewsController {
     @GetMapping("/news/{id}")
     public Article getone(@PathVariable Long id) {
         return articleRep.getOne(id);
+    }
+
+    @GetMapping("/news/latest")
+    public List<Article> getLastFive() {
+        return articleRep.findTop5ByOrderByPublishDateDesc();
     }
 }

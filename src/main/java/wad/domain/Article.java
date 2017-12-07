@@ -20,6 +20,7 @@ public class Article extends AbstractPersistable<Long> {
 
     private String title;
     private String lead; //Kuka ois arvannu et ingressi on englanniks "lead"
+    @Column(length=2000)
     private String body;
     private LocalDateTime publishDate;
     @ManyToMany(mappedBy = "articles")
