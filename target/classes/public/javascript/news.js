@@ -1,9 +1,10 @@
 $(document).ready(function() {
-   $("#newslist").append("<ol/>");
+   $("#newslist").append("<dl/>");
 
    $.getJSON("http://localhost:8080/articles/latest", function(data){
        $.each(data, function(i, article){
-          $("ol").append("<li><a href='http://localhost:8080/articles/'" + article.id + ">" + article.title + "</a></li>");
+           var link = "http://localhost:8080/news/" + article.id;
+          $("dl").append("<dt><a href=" + link + " >" + article.title + "</a></dt>").append("<dd>" + article.lead + "</dd>")
        });
    });
 });
