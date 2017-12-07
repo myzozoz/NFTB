@@ -12,26 +12,26 @@ import wad.repository.ArticleRepository;
 import java.util.List;
 
 @RestController
-public class NewsController {
+public class ArticleController {
     @Autowired
     private ArticleRepository articleRep;
 
-    @GetMapping("/news")
+    @GetMapping("/articles")
     public List<Article> getAll() {
         return articleRep.findAll();
     }
 
-    @PostMapping("/news")
+    @PostMapping("/articles")
     public Article add(@RequestBody Article article) {
         return articleRep.save(article);
     }
 
-    @GetMapping("/news/{id}")
+    @GetMapping("/articles/{id}")
     public Article getone(@PathVariable Long id) {
         return articleRep.getOne(id);
     }
 
-    @GetMapping("/news/latest")
+    @GetMapping("/articles/latest")
     public List<Article> getLastFive() {
         return articleRep.findTop5ByOrderByPublishDateDesc();
     }
