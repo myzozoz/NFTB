@@ -1,6 +1,9 @@
 #IntelliJ project files
 .idea/
 
+#Text file meant for my use with sketches of page layouts :)
+uutinen.txt
+
 # Compiled class file
 *.class
 
