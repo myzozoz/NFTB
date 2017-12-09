@@ -16,7 +16,7 @@ function listWriters(data) {
     });
 }
 
-$("#writerlist").on("click", ".inspectable-writer", function(){
+$("#writerlist").on("click", ".inspectable-writer", function() {
     console.log(this.id);
     show(this.id);
 });
@@ -27,6 +27,11 @@ function show(id) {
         div.empty();
         div.append("<p>Name: " + writer.name + "</p>");
         div.append("<p>Date of Birth: " + writer.birthday + "</p>");
-        div.append("<p>Articles " + writer.articles + "</p>");
-    })
+        div.append("<ul id=writer-articles/>")
+        $.getJSON("http://localhost:8080/writers/" + id + "/articles", function(articles) {
+            $.each(articles, function(i, art){
+                $("#writer-articles").append("<li>" + art.title + "</li>");
+            });
+        });
+    });
 }

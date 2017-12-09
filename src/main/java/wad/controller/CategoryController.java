@@ -4,6 +4,7 @@ package wad.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import wad.domain.Article;
 import wad.domain.Category;
 import wad.repository.CategoryRepository;
 
@@ -31,5 +32,12 @@ public class CategoryController {
     public Category getone(@PathVariable String name) {
         name = name.toLowerCase();
         return categoryRep.findByName(name);
+    }
+
+    @GetMapping("/categories/{name}/articles")
+    public List<Article> articlesForCategory(@PathVariable String name) {
+        name = name.toLowerCase();
+        Category cat = categoryRep.findByName(name);
+        return cat.getArticles();
     }
 }

@@ -20,13 +20,16 @@ $("#catlist").on("click", ".inspectable-category", function(){
 });
 
 function inspect(name){
-    $.getJSON("http://localhost:8080/categories/" + name, function(cat){
+    $.getJSON("http://localhost:8080/categories/" + name , function(cat){
         var div = $("#catbody");
         div.empty();
         div.append("<h1>" + cat.name + "</h1>");
         div.append("<ul id='newslist'/>")
-        $.each(cat.articles, function(i, art){
-            $("#newslist").append("<li>" + art.title + "</li>");
+        $.getJSON("http://localhost:8080/categories/" + name + "/articles", function(data) {
+            $.each(data, function(i, art) {
+                console.log(art);
+                $("#newslist").append("<li>" + art.title + "</li>");
+            });
         });
     });
 }
