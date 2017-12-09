@@ -20,4 +20,9 @@ public class DefaultController {
     public String category() {
         return "category";
     }
+
+    @GetMapping("/writer")
+    public String writer() {
+        return "writer";
+    }
 }

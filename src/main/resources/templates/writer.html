@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Writers</title>
 </head>
 <body>
+    <div id="cathead">
+        <ul id="categories"></ul>
+    </div>
 
+    <div id="writerprofile"></div>
+    <div id="writerlist"></div>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" th:src="@{/javascript/categoryheader.js}"></script>
+    <script type="text/javascript" th:src="@{/javascript/writer.js}"></script>
 </body>
 </html>

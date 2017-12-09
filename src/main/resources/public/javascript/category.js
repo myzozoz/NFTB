@@ -1,22 +1,21 @@
-$(document).ready(function() {
-    listCats();
-});
+$(document).ready(getCats());
 
-
-
-function listCats() {
-    var div = $("#catlist");
-    div.append("<h2>Categories</h2>")
+function getCats() {
     $.getJSON("http://localhost:8080/categories", function(data) {
-        $.each(data, function(i, cat) {
-            //var button = $("<input type='button' value='" + cat.name + "' onclick='inspect()'>");
-            var button = $("<input class='inspectable' type='button' value='" + cat.name + "'>");
-            div.append(button);
-        });
+        listCategories(data);
     });
 }
 
-$("#catlist").on("click", ".inspectable", function(){
+function listCategories(data) {
+    var div = $("#catlist");
+    div.append("<h2>Categories</h2>");
+    $.each(data, function(i, cat) {
+        var button = $("<input class='inspectable-category' type='button' value='" + cat.name + "'>");
+        div.append(button);
+    });
+}
+
+$("#catlist").on("click", ".inspectable-category", function(){
     inspect(this.value);
 });
 
