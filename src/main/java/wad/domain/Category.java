@@ -1,6 +1,6 @@
 package wad.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,12 @@ import java.util.List;
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category extends AbstractPersistable<Long> {
     private String name;
+
     @ManyToMany
+    @JsonBackReference
     private List<Article> articles;
+
+    public void addArticle(Article article) {
+        this.articles.add(article);
+    }
 }

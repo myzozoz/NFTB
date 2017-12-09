@@ -1,6 +1,7 @@
 package wad.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,12 +24,24 @@ public class Article extends AbstractPersistable<Long> {
     @Column(length=2000)
     private String body;
     private LocalDateTime publishDate;
+
     @ManyToMany(mappedBy = "articles")
+    @JsonManagedReference
     private List<Writer> writers;
+
     @ManyToMany(mappedBy = "articles")
+    @JsonManagedReference
     private List<Category> categories;
 
     @Lob
     @Basic(fetch= FetchType.LAZY)
     private byte[] picture;
+
+    public void addWriter(Writer writer) {
+        this.writers.add(writer);
+    }
+
+    public void addCategory(Category category) {
+        this.categories.add(category);
+    }
 }
