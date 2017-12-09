@@ -23,6 +23,7 @@ $("#catlist").on("click", ".inspectable", function(){
 function inspect(name){
     $.getJSON("http://localhost:8080/categories/" + name, function(cat){
         var div = $("#catbody");
+        div.empty();
         div.append("<h1>" + cat.name + "</h1>");
         div.append("<ul id='newslist'/>")
         $.each(cat.articles, function(i, art){
