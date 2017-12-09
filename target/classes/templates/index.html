@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>NFTB</title>
@@ -15,7 +15,7 @@
         <h3>Latest News:</h3>
     </section>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="javascript/news.js"></script>
-    <script src="javascript/categoryheader.js"></script>
+    <script type="text/javascript" th:src="@{/javascript/categoryheader.js}"></script>
+    <script type="text/javascript" th:src="@{/javascript/news.js}"></script>
 </body>
 </html>
