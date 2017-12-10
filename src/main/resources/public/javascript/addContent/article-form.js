@@ -1,0 +1,118 @@
+function article_createForm() {
+    article_addTitleInput($("<form class='article-form' name='article-form'></form>"));
+}
+
+function article_addTitleInput(form) {
+    form.append("<textarea id='title' name='title' rows='1' cols='60'>Title</textarea>");
+    form.append("<br>");
+    article_addLeadInput(form);
+}
+
+function article_addLeadInput(form) {
+    form.append("<textarea id='lead' name='lead' rows='2' cols='80'>Lead</textarea>");
+    form.append("<br>");
+    article_addBodyInput(form);
+}
+
+function article_addBodyInput(form) {
+    form.append("<textarea id='body' name='body' rows='20' cols='80'>Text</textarea>");
+    form.append("<br>");
+    article_addPicture(form);
+}
+
+function article_addPicture(form) {
+    form.append("<input id='picture' type='file' accept='image/*' value='Choose picture'>");
+    form.append("<br>");
+    article_addWriters(form);
+}
+
+function article_addWriters(form) {
+    var select = $("<select name='writers' size='5' id='select-writer'></select>")
+    $.getJSON("/writers", function(data) {
+        $.each(data, function(i, writer) {
+            select.append("<option class='add-writer-from-list' id='" + writer.id + "' value='" + writer.id + "'>"
+                + writer.name + "</option>");
+        });
+    });
+    form.append(select);
+    form.append("<ul id='added-writers'></ul>");
+    form.append("<br>");
+    article_addCategories(form);
+}
+
+function article_addCategories(form) {
+    var select = $("<select name='categories' size='5' id='select-category'></select>")
+    $.getJSON("/categories", function(data) {
+        $.each(data, function(i, cat) {
+            select.append("<option class='add-category-from-list' id='" + cat.id + "' value='" + cat.name + "'>"
+                + cat.name + "</option>");
+        });
+    });
+    form.append(select);
+    form.append("<ul id='added-categories'></ul>");
+    article_addFormToPage(form);
+}
+
+function article_addFormToPage(form) {
+    var div = $("#add-article").empty();
+    div.append(form);
+    div.append("<button type='button' class='send-article-form'>Publish article</button>")
+}
+
+$("#add-article").on("click", ".add-category-from-list", function() {
+    $.getJSON("/categories/" + this.value, function(cat) {
+        $("#added-categories").append("<li id='" + cat.name + "'>" + cat.name + "</li>");
+    });
+});
+
+$("#add-article").on("click", ".add-writer-from-list", function() {
+    $.getJSON("/writers/" + this.value, function(writer) {
+        $("#added-writers").append("<li id='" + writer.id + "'>" + writer.name + "</li>");
+    });
+});
+
+$("#add-article").on("click", ".send-article-form", function() {
+    var data = JSON.stringify({
+        title : $("#title").val(),
+        lead : $("#lead").val(),
+        body : $("#body").val(),
+        picture : $("#picture").val(),
+        publishDate : new Date($.now())
+    });
+
+    article_send(data);
+});
+
+function article_send(content) {
+    $.ajax({
+        url : "/articles",
+        dataType : "json",
+        contentType : "application/json; charset=utf-8",
+        type : "post",
+        data : content,
+        success : function(data) {
+            article_sendWriters(data.id);
+            article_sendCategories(data.id);
+        }
+    });
+}
+
+function article_sendWriters(article_id) {
+    $("#added-writers").children().each(function() {
+        console.log(article_id + ", " + this.id);
+        $.ajax({
+            url: "/articles/" + article_id + "/writers/" + this.id,
+            type : "put"
+        });
+    });
+}
+
+function article_sendCategories(article_id) {
+    $("#added-categories").children().each(function() {
+        console.log(article_id + ", " + this.id);
+        $.ajax({
+            url: "/articles/" + article_id + "/categories/" + this.id,
+            type : "put"
+        });
+    });
+}

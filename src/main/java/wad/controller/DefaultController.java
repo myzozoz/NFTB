@@ -25,4 +25,9 @@ public class DefaultController {
     public String writer() {
         return "writer";
     }
+
+    @GetMapping("/manage")
+    public String manage() {
+        return "manage";
+    }
 }

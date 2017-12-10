@@ -9,7 +9,6 @@ function getWriters() {
 
 function listWriters(data) {
     var div = $("#writerlist");
-    div.append("<h2>Writers</h2>");
     $.each(data, function(i, writer) {
         var button = $("<input class='inspectable-writer' type='button' id='" + writer.id + "' value='" + writer.name + "'>");
         div.append(button);

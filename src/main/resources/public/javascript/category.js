@@ -15,7 +15,6 @@ function getCats() {
 
 function listCategories(data) {
     var div = $("#catlist");
-    div.append("<h2>Categories</h2>");
     $.each(data, function(i, cat) {
         var button = $("<input class='inspectable-category' type='button' value='" + cat.name + "'>");
         div.append(button);
