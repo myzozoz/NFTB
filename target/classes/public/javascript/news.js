@@ -1,15 +1,19 @@
 $(document).ready(function() {
-   $("#newslist").append("<dl/>");
+    if (sessionStorage.getItem("current-article")){
+        readmore(sessionStorage.getItem("current-article"));
+    }
+    sessionStorage.removeItem("current-article");
 
-   $.getJSON("http://localhost:8080/articles/latest", function(data){
-       $.each(data, function(i, article){
-           var button = $("<input type='button' value='Read more...' onclick='readmore(" + article.id + ")'/>");
+    $("#newslist").append("<dl/>");
 
-          $("dl").append("<dt>" + article.title + "</dt>")
+    $.getJSON("http://localhost:8080/articles/latest", function(data){
+        $.each(data, function(i, article){
+            var button = $("<input type='button' value='Read more...' onclick='readmore(" + article.id + ")'/>");
+            $("dl").append("<dt>" + article.title + "</dt>")
               .append("<dd>" + article.lead + "</dd>")
               .append(button);
-       });
-   });
+        });
+    });
 });
 
 function readmore(id){

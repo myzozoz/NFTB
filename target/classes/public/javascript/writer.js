@@ -17,7 +17,6 @@ function listWriters(data) {
 }
 
 $("#writerlist").on("click", ".inspectable-writer", function() {
-    console.log(this.id);
     show(this.id);
 });
 
@@ -30,8 +29,18 @@ function show(id) {
         div.append("<ul id=writer-articles/>")
         $.getJSON("http://localhost:8080/writers/" + id + "/articles", function(articles) {
             $.each(articles, function(i, art){
-                $("#writer-articles").append("<li>" + art.title + "</li>");
+                var date = toDateTime(art.publishDate);
+                $("#writer-articles")
+                    .append("<li class='news-link' id='" + art.id + "'>"
+                        + art.title + ", "
+                        + date.toLocaleDateString() + " "
+                        + date.toLocaleTimeString() + "</li>");
             });
         });
     });
 }
+
+$("#writerprofile").on("click", ".news-link", function(){
+    sessionStorage.setItem("current-article", this.id);
+    document.location.href = "/news";
+});

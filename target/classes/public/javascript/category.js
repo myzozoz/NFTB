@@ -1,3 +1,10 @@
+$(document).ready(function() {
+    if (sessionStorage.getItem("current-category")){
+        inspect(sessionStorage.getItem("current-category"));
+    }
+    sessionStorage.removeItem("current-category")
+});
+
 $(document).ready(getCats());
 
 function getCats() {
@@ -20,16 +27,30 @@ $("#catlist").on("click", ".inspectable-category", function(){
 });
 
 function inspect(name){
-    $.getJSON("http://localhost:8080/categories/" + name , function(cat){
+    $.getJSON("/categories/" + name , function(cat){
         var div = $("#catbody");
         div.empty();
         div.append("<h1>" + cat.name + "</h1>");
-        div.append("<ul id='newslist'/>")
-        $.getJSON("http://localhost:8080/categories/" + name + "/articles", function(data) {
-            $.each(data, function(i, art) {
-                console.log(art);
-                $("#newslist").append("<li>" + art.title + "</li>");
-            });
+        div.append("<ul id='newslist'/>");
+        addArticles(name);
+    });
+}
+
+function addArticles(name) {
+    $.getJSON("/categories/" + name + "/articles", function(data) {
+        $.each(data, function(i, art) {
+            var date = toDateTime(art.publishDate);
+            $("#newslist")
+                .append("<li class='news-link' id='" + art.id + "'>"
+                    + art.title + ", "
+                    + date.toLocaleDateString() + " "
+                    + date.toLocaleTimeString()
+                    +  "</li>");
         });
     });
 }
+
+$("#catbody").on("click", ".news-link", function() {
+    sessionStorage.setItem("current-article", this.id);
+    document.location.href = "/news";
+});
