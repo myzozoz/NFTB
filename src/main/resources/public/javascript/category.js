@@ -8,7 +8,7 @@ $(document).ready(function() {
 $(document).ready(getCats());
 
 function getCats() {
-    $.getJSON("http://localhost:8080/categories", function(data) {
+    $.getJSON("/categories", function(data) {
         listCategories(data);
     });
 }
