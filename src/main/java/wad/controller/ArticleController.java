@@ -32,8 +32,7 @@ public class ArticleController {
     public Article add(@RequestBody Article article) {
         return articleRep.save(article);
     }
-
-    @Transactional
+    
     @GetMapping("/articles/{id}")
     public Article getone(@PathVariable Long id) {
         return articleRep.getOne(id);

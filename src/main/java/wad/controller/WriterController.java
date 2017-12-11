@@ -28,7 +28,6 @@ public class WriterController {
         return writerRep.findAll();
     }
 
-    @Transactional
     @GetMapping("/writers/{id}")
     public Writer getone(@PathVariable Long id) {
         return writerRep.getOne(id);
