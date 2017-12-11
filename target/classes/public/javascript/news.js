@@ -20,9 +20,11 @@ function readmore(id){
     $.getJSON("/articles/" + id, function(article){
         var section = $("#article");
         section.empty();
+        section.append("<img src='/articles/" + id + "/picture'>");
         section.append("<h2>" + article.title + "</h2>");
         section.append("<h4>" + article.lead + "</h4>");
         section.append("<p>" + article.body + "</p>");
+        section.append("<hr>");
     });
-
 }
+

@@ -5,6 +5,7 @@ $(document).ready(function() {
        $.each(cats, function(i, cat) {
            ul.append("<button type='button' class='header-category' name='" + cat.name + "'>" + cat.name + "</button>")
        });
+       ul.append("<hr>");
     });
 });
 

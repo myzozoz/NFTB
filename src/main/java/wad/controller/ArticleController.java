@@ -3,10 +3,13 @@ package wad.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import wad.domain.Article;
 import wad.repository.ArticleRepository;
 import wad.service.ArticleService;
 
+import javax.tools.FileObject;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -45,6 +48,18 @@ public class ArticleController {
     @PutMapping("/articles/{a_id}/categories/{name}")
     public Article addCategory(@PathVariable Long a_id, @PathVariable String name) {
         return articleService.addCategoryToArticle(a_id, name);
+    }
+
+    @PostMapping(path="/articles/{id}/picture")
+    public Article addPicture(@PathVariable Long id, @RequestParam("file") MultipartFile picture) throws IOException {
+        Article article = articleRep.getOne(id);
+        article.setPicture(picture.getBytes());
+        return articleRep.save(article);
+    }
+
+    @GetMapping(path = "/articles/{id}/picture", produces = "image/*")
+    public byte[] getPicture(@PathVariable Long id) {
+        return articleRep.getOne(id).getPicture();
     }
 
 }
