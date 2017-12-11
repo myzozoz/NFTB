@@ -35,7 +35,7 @@ public class Article extends AbstractPersistable<Long> {
     private List<Category> categories;
 
     @Lob
-    @Basic(fetch= FetchType.LAZY)
+    //@Basic(fetch= FetchType.LAZY)
     private byte[] picture;
 
     public void addWriter(Writer writer) {
