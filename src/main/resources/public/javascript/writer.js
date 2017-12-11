@@ -23,8 +23,10 @@ function show(id) {
     $.getJSON("/writers/" + id, function(writer) {
         var div = $("#writerprofile");
         div.empty();
+        div.append("<img src='/writers/" + id + "/picture'>");
         div.append("<p>Name: " + writer.name + "</p>");
         div.append("<p>Date of Birth: " + writer.birthday + "</p>");
+        div.append("<hr>");
         div.append("<ul id=writer-articles/>")
         $.getJSON("/writers/" + id + "/articles", function(articles) {
             $.each(articles, function(i, art){
@@ -36,6 +38,7 @@ function show(id) {
                         + date.toLocaleTimeString() + "</li>");
             });
         });
+        div.append("<hr>");
     });
 }
 

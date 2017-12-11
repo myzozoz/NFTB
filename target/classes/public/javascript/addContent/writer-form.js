@@ -44,6 +44,32 @@ function writer_send(content) {
         dataType : "json",
         contentType : "application/json; charset=utf-8",
         type : "post",
-        data : content
+        data : content,
+        success : function(data){
+            writer_sendPicture(data.id);
+        }
     });
+}
+
+var wr_picture = [];
+
+$("#add-writer").on("change", "#profile-picture", function(event) {
+    wr_picture = event.target.files;
+    console.log(wr_picture);
+});
+
+function writer_sendPicture(writer_id) {
+    if (wr_picture.length > 0) {
+        var content = new FormData();
+        content.append("file", wr_picture[0]);
+
+        $.ajax({
+            url: "/writers/" + writer_id + "/picture",
+            type: "post",
+            enctype: "multipart/form-data",
+            data: content,
+            processData: false,
+            contentType: false
+        });
+    }
 }

@@ -83,7 +83,6 @@ $("#add-article").on("click", ".send-article-form", function() {
     });
 
     article_send(data);
-    article_createAdderButton();
 });
 
 function article_send(content) {
@@ -124,7 +123,6 @@ var pic_files = [];
 
 $("#add-article").on("change", "#article-picture", function (event){
     pic_files = event.target.files;
-    console.log(pic_files);
 });
 
 function article_sendPicture(article_id) {
@@ -137,10 +135,7 @@ function article_sendPicture(article_id) {
         enctype : "multipart/form-data",
         data : content,
         processData : false,
-        contentType : false,
-        success : function(reply) {
-            alert(reply);
-        }
+        contentType : false
     });
 }
 

@@ -83,7 +83,6 @@ $("#add-article").on("click", ".send-article-form", function() {
     });
 
     article_send(data);
-    article_createAdderButton();
 });
 
 function article_send(content) {
@@ -124,24 +123,22 @@ var pic_files = [];
 
 $("#add-article").on("change", "#article-picture", function (event){
     pic_files = event.target.files;
-    console.log(pic_files);
 });
 
 function article_sendPicture(article_id) {
-    var content = new FormData();
-    content.append("file", pic_files[0])
+    if (pic_files.length > 0) {
+        var content = new FormData();
+        content.append("file", pic_files[0])
 
-    $.ajax({
-        url : "/articles/" + article_id + "/picture",
-        type : "post",
-        enctype : "multipart/form-data",
-        data : content,
-        processData : false,
-        contentType : false,
-        success : function(reply) {
-            alert(reply);
-        }
-    });
+        $.ajax({
+            url: "/articles/" + article_id + "/picture",
+            type: "post",
+            enctype: "multipart/form-data",
+            data: content,
+            processData: false,
+            contentType: false
+        });
+    }
 }
 
 function goToArticle(id) {
