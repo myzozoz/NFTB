@@ -81,6 +81,7 @@ $("#add-article").on("click", ".send-article-form", function() {
     });
 
     article_send(data);
+    article_createAdderButton();
 });
 
 function article_send(content) {
@@ -99,7 +100,6 @@ function article_send(content) {
 
 function article_sendWriters(article_id) {
     $("#added-writers").children().each(function() {
-        console.log(article_id + ", " + this.id);
         $.ajax({
             url: "/articles/" + article_id + "/writers/" + this.id,
             type : "put"

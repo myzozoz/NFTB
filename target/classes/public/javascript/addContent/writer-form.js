@@ -1,5 +1,4 @@
 function writer_createForm() {
-    console.log("createForm() called");
     writer_addNameInput($("<form class='writer-form' name='writer-form'></form>"));
 }
 
@@ -36,6 +35,7 @@ $("#add-writer").on("click", ".send-writer-form", function(){
         birthday : $("#birthday").val()
     });
     writer_send(data);
+    writer_createAdderButton();
 });
 
 function writer_send(content) {
