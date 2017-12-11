@@ -20,9 +20,6 @@ public class ArticleService {
     @Autowired
     private CategoryRepository categoryRep;
 
-    //method for adding writer to article
-
-    //method for adding category to article
 
     @Transactional
     public Article addWriterToArticle(Long article_id, Long writer_id) {

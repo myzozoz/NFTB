@@ -9,6 +9,7 @@ import wad.repository.ArticleRepository;
 import wad.service.ArticleService;
 
 import javax.tools.FileObject;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,21 +21,25 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Transactional
     @GetMapping("/articles")
     public List<Article> getAll() {
         return articleRep.findAll();
     }
 
+    @Transactional
     @PostMapping("/articles")
     public Article add(@RequestBody Article article) {
         return articleRep.save(article);
     }
 
+    @Transactional
     @GetMapping("/articles/{id}")
     public Article getone(@PathVariable Long id) {
         return articleRep.getOne(id);
     }
 
+    @Transactional
     @GetMapping("/articles/latest")
     public List<Article> getLastFive() {
         return articleRep.findTop5ByOrderByPublishDateDesc();
@@ -50,6 +55,7 @@ public class ArticleController {
         return articleService.addCategoryToArticle(a_id, name);
     }
 
+    @Transactional
     @PostMapping(path="/articles/{id}/picture")
     public Article addPicture(@PathVariable Long id, @RequestParam("file") MultipartFile picture) throws IOException {
         Article article = articleRep.getOne(id);
@@ -57,6 +63,7 @@ public class ArticleController {
         return articleRep.save(article);
     }
 
+    @Transactional
     @GetMapping(path = "/articles/{id}/picture", produces = "image/*")
     public byte[] getPicture(@PathVariable Long id) {
         return articleRep.getOne(id).getPicture();

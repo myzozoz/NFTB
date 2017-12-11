@@ -126,17 +126,19 @@ $("#add-article").on("change", "#article-picture", function (event){
 });
 
 function article_sendPicture(article_id) {
-    var content = new FormData();
-    content.append("file", pic_files[0])
+    if (pic_files.length > 0) {
+        var content = new FormData();
+        content.append("file", pic_files[0])
 
-    $.ajax({
-        url : "/articles/" + article_id + "/picture",
-        type : "post",
-        enctype : "multipart/form-data",
-        data : content,
-        processData : false,
-        contentType : false
-    });
+        $.ajax({
+            url: "/articles/" + article_id + "/picture",
+            type: "post",
+            enctype: "multipart/form-data",
+            data: content,
+            processData: false,
+            contentType: false
+        });
+    }
 }
 
 function goToArticle(id) {
