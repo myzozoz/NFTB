@@ -57,6 +57,7 @@ function article_addFormToPage(form) {
     var div = $("#add-article").empty();
     div.append(form);
     div.append("<button type='button' class='send-article-form'>Publish article</button>")
+    div.append("<br><br>")
 }
 
 $("#add-article").on("click", ".add-category-from-list", function() {
@@ -76,7 +77,6 @@ $("#add-article").on("click", ".send-article-form", function() {
         title : $("#title").val(),
         lead : $("#lead").val(),
         body : $("#body").val(),
-        picture : $("#picture").val(),
         publishDate : new Date($.now())
     });
 

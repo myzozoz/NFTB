@@ -9,7 +9,7 @@ $("#add-article").on("click", ".article-adder-button", function() {
 });
 
 $("#add-writer").on("click", ".writer-adder-button", function() {
-
+    writer_createForm();
 });
 
 $("#add-category").on("click", ".category-adder-button", function(){
