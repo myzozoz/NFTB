@@ -25,4 +25,5 @@
     --* (Ovat kuitenkin olemassa ja näkyvät mm. Postmanilla tehdyllä kyselyllä)
  - Ainoa uutisten listaus on 5 viimeisintä + muissa näkymissä (kirjoittaja/kategoria), eli puuttuu siis toiminto selata kaikkia uutisia (REST -rajapinta kaikille kuitenkin löytyy)
  - Mitään ei voi poistaa :)
+ - Juuri mitään syötettä ei validoida
  - Testit (sori siitä)
